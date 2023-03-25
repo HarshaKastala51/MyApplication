@@ -8,7 +8,7 @@ phases:
   build:
     commands:
       - echo "Building the Docker image..."
-      - docker build -t ${DOCKER_USERNAME}/samplenode:${TAG} .
+      - docker build -t harshakastala/samplenode:${TAG} .
       - echo "Pushing the Docker image..."
       - docker push ${DOCKER_USERNAME}/samplenode:${TAG}
 artifacts:
