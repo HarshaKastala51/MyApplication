@@ -5,17 +5,12 @@ phases:
     commands:
       - echo "Logging in to Docker Hub..."
       - echo "${DOCKER_PASSWORD}" | docker login -u "${DOCKER_USERNAME}" --password-stdin
-      - echo "Retrieving the latest tag from Docker Hub..."
-      - export LATEST_TAG=$(curl -s https://registry.hub.docker.com/v1/repositories/${DOCKER_USERNAME}/samplenode/tags | jq -r '.[].name' | sort -rn | head -n1)
-      - echo "Latest tag is: $LATEST_TAG"
-      - export NEXT_TAG=$((LATEST_TAG + 1))
-      - echo "Incremented tag is: $NEXT_TAG"
   build:
     commands:
       - echo "Building the Docker image..."
-      - docker build -t ${DOCKER_USERNAME}/samplenode:$NEXT_TAG .
+      - docker build -t ${DOCKER_USERNAME}/samplenode:${TAG} .
       - echo "Pushing the Docker image..."
-      - docker push ${DOCKER_USERNAME}/samplenode:$NEXT_TAG
+      - docker push ${DOCKER_USERNAME}/samplenode:${TAG}
 artifacts:
   files:
     - '**/*'
