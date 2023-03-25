@@ -1,7 +1,18 @@
 version: 0.2
 
+env:
+  variables:
+    IMAGE_TAG: "1.0"
+
 phases:
   build:
     commands:
-      - echo "Building Docker image..."
-      - docker build -t harshakastala/samplenode:v1 .
+      - sed -i "s/{VERSION}/$IMAGE_TAG/g" Dockerfile
+      - docker build -t your-image-name:$IMAGE_TAG .
+      - export IMAGE_TAG=$(echo $IMAGE_TAG | awk -F. '{$NF++;print $0}')
+      - echo "IMAGE_TAG=$IMAGE_TAG" >> output_artifacts.txt
+
+artifacts:
+  files:
+    - output_artifacts.txt
+
