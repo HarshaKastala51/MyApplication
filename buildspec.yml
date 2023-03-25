@@ -6,7 +6,7 @@ phases:
       - echo "Logging in to Docker Hub..."
       - echo "${DOCKER_PASSWORD}" | docker login -u "${DOCKER_USERNAME}" --password-stdin
       - echo "Retrieving the latest tag from Docker Hub..."
-      - export LATEST_TAG=$(curl -s https://registry.hub.docker.com/v1/repositories/${DOCKER_USERNAME}/your-image-name/tags | jq -r '.[].name' | sort -rn | head -n1)
+      - export LATEST_TAG=$(curl -s https://registry.hub.docker.com/v1/repositories/${DOCKER_USERNAME}/samplenode/tags | jq -r '.[].name' | sort -rn | head -n1)
       - echo "Latest tag is: $LATEST_TAG"
       - export NEXT_TAG=$((LATEST_TAG + 1))
       - echo "Incremented tag is: $NEXT_TAG"
