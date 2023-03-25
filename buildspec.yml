@@ -5,6 +5,10 @@ env:
     IMAGE_TAG: "1.0"
 
 phases:
+  pre_build:
+    commands:
+      - echo "Logging in to Docker Hub..."
+      - echo "${DOCKER_PASSWORD}" | docker login -u "${DOCKER_USERNAME}" --password-stdin
   build:
     commands:
       - sed -i "s/{VERSION}/$IMAGE_TAG/g" Dockerfile
