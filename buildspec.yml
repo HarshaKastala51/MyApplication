@@ -4,13 +4,13 @@ phases:
   pre_build:
     commands:
       - echo "Logging in to Docker Hub..."
-      - echo "${DOCKER_PASSWORD}" | docker login -u "${DOCKER_USERNAME}" --password-stdin
+      - echo "Harsha@51" | docker login -u "harshakastala" --password-stdin
   build:
     commands:
       - echo "Building the Docker image..."
       - docker build -t harshakastala/samplenode:${TAG} .
       - echo "Pushing the Docker image..."
-      - docker push ${DOCKER_USERNAME}/samplenode:${TAG}
+      - docker push harshakastala/samplenode:${TAG}
 artifacts:
   files:
     - '**/*'
