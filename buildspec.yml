@@ -8,9 +8,9 @@ phases:
   build:
     commands:
       - echo "Building the Docker image..."
-      - docker build -t harshakastala/samplenode:${TAG} .
+      - docker build -t harshakastala/samplenode:1 .
       - echo "Pushing the Docker image..."
-      - docker push harshakastala/samplenode:${TAG}
+      - docker push harshakastala/samplenode:1
 artifacts:
   files:
     - '**/*'
