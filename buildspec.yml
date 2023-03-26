@@ -1,37 +1,15 @@
 version: 0.2
-env:
-  variables:
-    DOCKERHUB_USERNAME: harshakastala
-    DOCKERHUB_PASSWORD: Harsha@51
-    ECS_CLUSTER: mycluster
-    ECS_SERVICE: myservice
-
 phases:
-  pre_build:
-    commands:
-      - echo "Logging in to Docker Hub..."
-      - docker login -u $DOCKERHUB_USERNAME -p $DOCKERHUB_PASSWORD
-
-  build:
-    commands:
-      - echo "Building Docker image..."
-      - docker build -t harshakastala/samplenode:latest .
-
-  post_build:
-    commands:
-      - echo "Pushing Docker image..."
-      - docker push harshakastala/samplenode:latest
-
+    pre_build:
+      commands:
+        - echo "Logging in to Docker Hub..."
+        - echo "Harsha@51" | docker login -u "harshakastala" --password-stdin
+    build:
+      commands:
+        - echo "Building the Docker image..."
+        - docker build -t harshakastala/samplenode:latest .
+        - echo "Pushing the Docker image..."
+        - docker push harshakastala/samplenode:latest
 artifacts:
   files:
-    - "**/*"
-  discard-paths: yes
-
-deploy:
-  provider: ECS
-  cluster: $ECS_CLUSTER
-  service: $ECS_SERVICE
-  image: harshakastala/samplenode:latest
-
-on_failure:
-  - echo "Error: Build failed"
+    - '**/*
