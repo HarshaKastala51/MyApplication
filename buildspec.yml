@@ -3,7 +3,6 @@ env:
   variables:
     DOCKERHUB_USERNAME: harshakastala
     DOCKERHUB_PASSWORD: Harsha@51
-    DOCKERHUB_REPO: harshakastala/samplenode:V1
     ECS_CLUSTER: mycluster
     ECS_SERVICE: myservice
 
@@ -16,12 +15,12 @@ phases:
   build:
     commands:
       - echo "Building Docker image..."
-      - docker build -t $DOCKERHUB_REPO .
+      - docker build -t harshakastala/samplenode -f Dockerfile .
 
   post_build:
     commands:
       - echo "Pushing Docker image..."
-      - docker push $DOCKERHUB_REPO:latest
+      - docker push harshakastala/samplenode:latest
 
 artifacts:
   files:
@@ -32,7 +31,7 @@ deploy:
   provider: ECS
   cluster: $ECS_CLUSTER
   service: $ECS_SERVICE
-  image: $DOCKERHUB_REPO:latest
+  image: harshakastala/samplenode:latest
 
 on_failure:
   - echo "Error: Build failed"
