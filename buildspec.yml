@@ -3,7 +3,7 @@ env:
   variables:
     DOCKERHUB_USERNAME: harshakastala
     DOCKERHUB_PASSWORD: Harsha@51
-    DOCKERHUB_REPO: harshakastala/samplenode
+    DOCKERHUB_REPO: harshakastala/samplenode:V1
     ECS_CLUSTER: mycluster
     ECS_SERVICE: myservice
 
