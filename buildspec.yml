@@ -8,12 +8,10 @@ phases:
   build:
     commands:
       - echo "Building the Docker image..."  
-      - docker build -t harshakastala/samplenode:$IMAGE_TAG .
-      - docker tag harshakastala/samplenode:$IMAGE_TAG harshakastala/samplenode:latest
+      - docker build -t harshakastala/samplenode:latest .
   post_build:
     commands:
       - echo "Pushing Docker image to DockerHub..."
-      - docker push harshakastala/samplenode:$IMAGE_TAG
       - docker push harshakastala/samplenode:latest
       
       
