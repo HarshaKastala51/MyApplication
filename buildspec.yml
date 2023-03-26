@@ -8,7 +8,7 @@ phases:
   build:
     commands:
       - echo "Building the Docker image..."
-      - docker build -t harshakastala:samplenode-1 .
+      - docker build -t harshakastala:samplenode-1 -f Dockerfile .
       - echo "Pushing the Docker image..."
       - docker push harshakastala:samplenode-1
 artifacts:
