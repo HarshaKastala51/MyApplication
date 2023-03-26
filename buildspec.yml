@@ -7,10 +7,16 @@ phases:
       - echo "Harsha@51" | docker login -u "harshakastala" --password-stdin
   build:
     commands:
-      - echo "Building the Docker image..."
-      - docker build -t harshakastala/samplenode:latest -f Dockerfile .
-      - echo "Pushing the Docker image..."
+      - echo "Building the Docker image..."  
+      - docker build -t harshakastala/samplenode:$IMAGE_TAG .
+      - docker tag harshakastala/samplenode:$IMAGE_TAG harshakastala/samplenode:latest
+  post_build:
+    commands:
+      - echo "Pushing Docker image to DockerHub..."
+      - docker push harshakastala/samplenode:$IMAGE_TAG
       - docker push harshakastala/samplenode:latest
+      
+      
 artifacts:
   files:
     - '**/*'
