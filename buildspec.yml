@@ -12,4 +12,4 @@ phases:
         - docker push harshakastala/samplenode:latest
 artifacts:
   files:
-    - '**/*
+    - '**/*'
