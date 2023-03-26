@@ -6,22 +6,33 @@ env:
     DOCKERHUB_REPO: harshakastala/samplenode
     ECS_CLUSTER: mycluster
     ECS_SERVICE: myservice
+
 phases:
   pre_build:
     commands:
-      - echo Logging in to Dockerhub...
-      - echo $DOCKERHUB_PASSWORD | docker login -u $DOCKERHUB_USERNAME --password-stdin
+      - echo "Logging in to Docker Hub..."
+      - docker login -u $DOCKERHUB_USERNAME -p $DOCKERHUB_PASSWORD
+
   build:
     commands:
-      - echo Building Docker image...
+      - echo "Building Docker image..."
       - docker build -t $DOCKERHUB_REPO .
-      - docker tag $DOCKERHUB_REPO:latest $DOCKERHUB_REPO:$CODEBUILD_RESOLVED_SOURCE_VERSION
+
   post_build:
     commands:
-      - echo Pushing Docker image to Dockerhub...
+      - echo "Pushing Docker image..."
       - docker push $DOCKERHUB_REPO:latest
-      - docker push $DOCKERHUB_REPO:$CODEBUILD_RESOLVED_SOURCE_VERSION
-      - echo Updating ECS service...
-      - aws ecs update-service --cluster $ECS_CLUSTER --service $ECS_SERVICE --force-new-deployment
+
 artifacts:
-  files: imagedefinitions.json
+  files:
+    - "**/*"
+  discard-paths: yes
+
+deploy:
+  provider: ECS
+  cluster: $ECS_CLUSTER
+  service: $ECS_SERVICE
+  image: $DOCKERHUB_REPO:latest
+
+on_failure:
+  - echo "Error: Build failed"
